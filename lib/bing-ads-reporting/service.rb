@@ -33,7 +33,7 @@ module BingAdsReporting
         period = options[:period]
         report_type = options[:report_type]
         account_id = @account_id.nil? ? nil : { 'arr:long' => @account_id }
-        {
+        prepared_data = {
           ns('ReportRequest') => {
             ns('Format') => options[:format],
             ns('Language') => 'English',
@@ -70,6 +70,8 @@ module BingAdsReporting
             }
           }
         }
+        prepared_data["Rows"] = options[:rows] if options[:rows].present?
+        prepared_data
       end
 
       def submit_generate_report(options)
@@ -83,7 +85,8 @@ module BingAdsReporting
           columns: report_settings[:columns],
           aggregation: report_settings[:aggregation],
           report_type: report_settings[:report_type],
-          report_name: report_settings[:report_name]
+          report_name: report_settings[:report_name],
+          rows: report_settings[:rows]
         }
       end
 
