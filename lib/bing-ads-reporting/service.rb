@@ -70,7 +70,7 @@ module BingAdsReporting
             }
           }
         }
-        prepared_data[ns('Rows')] = options[:rows] if options[:rows].present?
+        prepared_data[ns('ReportRequest')][ns('Rows')] = options[:rows] if options[:rows].present?
         prepared_data
       end
 
