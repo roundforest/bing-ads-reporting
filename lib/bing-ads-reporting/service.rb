@@ -43,6 +43,7 @@ module BingAdsReporting
             ns('Columns') => {
               ns("#{report_type}ReportColumn") => options[:columns]
             },
+            ns("MaxRows") => options[:rows],
             ns('Scope') => {
               ns('AccountIds') => account_id,
               ns('AdGroups') => nil,
@@ -70,7 +71,7 @@ module BingAdsReporting
             }
           }
         }
-        prepared_data[ns('ReportRequest')][ns('Rows')] = options[:rows] if options[:rows].present?
+        prepared_data[ns('ReportRequest')].delete(ns("MaxRows")) if options[:rows].blank?
         prepared_data
       end
 
